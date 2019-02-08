@@ -1,0 +1,59 @@
+---
+title: "Estimating Tropical Principal Components using Metropolis Hasting Algorithm"
+author: "Qiwen Kang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Introduction
+
+This note is wrote for showing how to use R code implementing MCMC method in tropical space. All the code included in this note could be found on https://github.com/QiwenKang/tropicalMCMC.git.
+
+## Getting started
+
+First of all, we need to setup an proper environment and load all the packages we need.
+
+```{r eval=FALSE}
+library(ape)
+library(phangorn)
+library(tropMCMC)
+```
+
+## MCMC method
+
+After setting up enviroment, we need to read in an alignment. In our paper, we used lungfish data set, which you can download from http://www.mas.ncl.ac.uk/~ntmwn/geophytterplus/, as an example. The function `read.tree` is used to read in an tree.
+
+```{r eval=FALSE}
+trees_ori <- read.tree('./data/lungfish.txt')
+```
+
+Once we have read in all the raw trees, we need to declare some variable name meanwhile. `n` is the number of leaves; `pcs` gives how many principle components would be considered; `to` is tip labels of the raw trees and ordered by names; `N` is the number of trees in whole data set.
+
+```{r eval=FALSE}
+n <- length(trees_ori[[1]]$tip.label)
+N <- length(trees_ori)
+pcs <- 3
+to <- trees_ori[[1]]$tip.label
+```
+Until now, we have already known some basic information about our data set. To begin our method, we should extract distance matrix from each tree and transfer it to a vector format. This could be done using `disMat` function. We need to state outgroups here as well. Variable `D_all` is just a matrix format of `distVec_all` with number of rows equals to `pcs` and number of columns equals to `N`.  
+
+```{r eval=FALSE}
+distVec_all <- distMat(trees_ori, tipOrder = to, 
+outgp = c("Leucoraja","Scyliorhin","Callorhinc"))
+D_all <- matrix(unlist(distVec_all), ncol = N) 
+```
+Now, we can begin our MCMC method. `sumsValue`, `comb_list`, `points_list` and `trop_list` are four variables to save the output of our method. Specifically, `sumsValue` is the sum of tropical distances; `points_list` includes all the projected points on tropical space of each tree; `comb_list` includes the index of trees which three trees have the minimum sum of tropical distances; `trop_list` contains the tropical distance between two points.
+
+```{r eval=FALSE}
+tropMCMC(distVect_all = distVec_all, N = N, nr= 5 pcs = pcs)
+```
