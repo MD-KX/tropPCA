@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 ## Introduction
 
-This note is wrote for showing how to use R code implementing MCMC method in tropical space. All the code included in this note could be found on https://github.com/QiwenKang/tropicalMCMC.git.
+This note is wrote for showing how to use R code implementing MCMC method in tropical space. All the code included in this note could be found on https://github.com/QiwenKang/tropMCMC.git.
 
 ## Getting started
 
@@ -48,12 +48,11 @@ to <- trees_ori[[1]]$tip.label
 Until now, we have already known some basic information about our data set. To begin our method, we should extract distance matrix from each tree and transfer it to a vector format. This could be done using `disMat` function. We need to state outgroups here as well. Variable `D_all` is just a matrix format of `distVec_all` with number of rows equals to `pcs` and number of columns equals to `N`.  
 
 ```{r eval=FALSE}
-distVec_all <- distMat(trees_ori, tipOrder = to, 
-outgp = c("Leucoraja","Scyliorhin","Callorhinc"))
+distVec_all <- distMat(trees_ori, tipOrder = to, outgp = c("Leucoraja","Scyliorhin","Callorhinc"))
 D_all <- matrix(unlist(distVec_all), ncol = N) 
 ```
 Now, we can begin our MCMC method. `sumsValue`, `comb_list`, `points_list` and `trop_list` are four variables to save the output of our method. Specifically, `sumsValue` is the sum of tropical distances; `points_list` includes all the projected points on tropical space of each tree; `comb_list` includes the index of trees which three trees have the minimum sum of tropical distances; `trop_list` contains the tropical distance between two points.
 
 ```{r eval=FALSE}
-tropMCMC(distVect_all = distVec_all, N = N, nr= 5 pcs = pcs)
+tropMCMC(distVect_all = distVec_all, N = N, nr= 5, pcs = pcs)
 ```

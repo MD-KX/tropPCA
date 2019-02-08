@@ -10,6 +10,18 @@
 #' @export
 #'
 #' @examples
+
+.vec_fun<-function(x){
+  m<-dim(x)[1]
+  vecTreesVec<-rep(NA,choose(m,2))
+  for(row.num in 1:(m-1)){
+    for(col.num in (row.num+1):m){
+      vecTreesVec[col.num-row.num+(m-1+(m-1-row.num+2))*(row.num-1)/2]<-x[row.num,col.num]
+    }
+  }
+  vecTreesVec
+}
+
 distMat <- function(trees, tipOrder){ # Here trees should be a list
   if(class(trees)=="multiPhylo"){
     trees_root <- root(trees, outgroup = tipOrder[1],resolve.root=TRUE)
@@ -18,7 +30,7 @@ distMat <- function(trees, tipOrder){ # Here trees should be a list
     dist_chrono <- parLapply(cl, chronotrees,cophenetic)
 
     dist_ordered <- parLapply(cl, dist_chrono, function(x) x[tipOrder, tipOrder])
-    distVec_all <- parLapply(cl, dist_ordered,vec_fun)
+    distVec_all <- parLapply(cl, dist_ordered, .vec_fun)
 
     # chronotrees <- lapply( trees_root, chronos)
     # dist_chrono <- lapply(chronotrees,cophenetic)
