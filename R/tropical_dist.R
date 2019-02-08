@@ -1,4 +1,4 @@
-#' Tropical distance
+#' Tropical distance between two trees.
 #'
 #'
 #' @description

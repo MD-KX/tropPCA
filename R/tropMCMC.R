@@ -1,7 +1,7 @@
 #' Tropical MCMC
 #'
 #' @param distVect_all
-#'
+#' All of the distance vectors.
 #' @param N
 #'  Number of points in tropical space.
 #' @param pcs
@@ -25,7 +25,7 @@ tropMCMC <- function(distVect_all, N, pcs, nr = 2, env = .GlobalEnv){
     best <- 100000
     out <- c(1:N)[-sample_init]
     pc_base_init <- D_all[,sample_init]
-    init_value <- tropDist(pc_base_init, distVec_all)
+    init_value <- tropDistSum(pc_base_init, distVec_all)
     for(i in 1:N){
       change_ind <- sample(pcs,1)
       out_change <- sample(out, 1)
@@ -35,7 +35,7 @@ tropMCMC <- function(distVect_all, N, pcs, nr = 2, env = .GlobalEnv){
 
       new_base <- D_all[,comb_set]
 
-      update_value <- tropDist(new_base, distVec_all)
+      update_value <- tropDistSum(new_base, distVec_all)
       r <- init_value/update_value
 
       if(u < min(r, 1)){
