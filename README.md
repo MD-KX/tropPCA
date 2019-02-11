@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Principal component analysis
-=======
 # Principal component analysis in tropical space
 
 ## Introduction
@@ -12,4 +9,3 @@ You can install `tropPCA` from Github with:
 # install.packages("devtools")
 devtools::install_github("https://github.com/QiwenKang/tropPCA")
 ```
->>>>>>> 72b496b8e4e73d72d4011e07ddd272d39c680a3a
