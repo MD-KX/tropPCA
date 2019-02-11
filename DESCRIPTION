@@ -1,8 +1,9 @@
-Package: tropMCMC
+Package: tropPCA
 Type: Package
-Title: MCMC process in tropcial space
+Title: Principal components analysis in tropical space
 Version: 0.1.0
-Author: Who wrote it
+Author: c(person("Qiwen", "Kang", role = c("aut","cre")),
+             person("Xu","Zhang", role = "aut"))
 Maintainer: Qiwen Kang <qiwen.kang@uky.edu>
 Description: This package includes MCMC process in tropical space. In addition, some of other methods in tropical space are inlcuded.
 License: GPL-3
