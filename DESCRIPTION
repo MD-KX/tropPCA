@@ -1,6 +1,6 @@
 Package: tropPCA
 Type: Package
-Title: Principal components analysis in tropical space
+Title: Principal component analysis in tropical space
 Version: 0.1.0
 Author: c(person("Qiwen", "Kang", role = c("aut","cre")),
              person("Xu","Zhang", role = "aut"))
