@@ -15,7 +15,7 @@
 #'
 #' @examples
 tropMCMC <- function(distVect_all, N, pcs, nr = 2, env = .GlobalEnv){
-  env$sumsValue <- rep(NA, nr)
+  env$sumValues <- rep(NA, nr)
   env$comb_list <- list()
 
   D_all <- matrix(unlist(distVec_all), ncol=N)
@@ -45,7 +45,8 @@ tropMCMC <- function(distVect_all, N, pcs, nr = 2, env = .GlobalEnv){
 
     }
     env$comb_list[[j]] <- sample_init
-    env$sumsValue[j] <- best
+    env$sumValues[j] <- best
   }
-  return(list(comb_list, sumsValue))
+  min_index <- which(sumValues==min(sumValues))
+  return(comb_list[[min_index]])
 }
